@@ -1,1 +1,27 @@
-<p>por-region works!</p>
+<h3>Buscar por región <small>{{regionActiva | titlecase}}</small></h3>
+<hr>
+<h5>Selecciona la región</h5>
+<div class="row">
+    <div class="col">
+        <!-- Una forma de poner una clase a un elemento, en este caso cuando region sea igual a regionActiva, se pone la clase btn-primary, lo que pone el btn de region de color 
+            azul, como que está clickado: [class.btn-primary]="region === regionActiva" -->
+        <!-- Otra forma de hacerlo: 
+                [ngClass]="{
+                    'btn-primary': regionActiva === region,
+                    'btn-outline-primary': regionActiva !== region
+                }"
+            El inconveniente es que lo estamos evaluando dos veces y Angular es eficiente pero esto puede estorbar.
+        -->
+        <!-- Otra forma de hacerlo es: 
+            [class]="(region === regionActiva) ? 'btn btn-primary' : 'btn btn-outline-primary' " ;
+        es más eficiente porque solo hacemos una unica evaluacion --> 
+        <!-- mejor ponerlo asi: 
+        [class]="getClass(region)" 
+        porque es mejor separar logica de html -->
+        <button 
+        *ngFor="let region of regiones" 
+        [class]="getClass(region)" 
+        (click)="activarRegion(region)"
+        >{{region | titlecase}}</button>
+    </div>
+</div>
