@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, } from '@angular/core';
+import { Country } from '../../interface/pais.interface';
 import { PaisService } from '../../services/pais.service';
 
 @Component({
@@ -7,26 +8,34 @@ import { PaisService } from '../../services/pais.service';
 })
 export class PorPaisComponent {
 
-  termino: string = ''
+  termino: string = '';
   hayError: boolean = false;
+  paises: Country[] = [];
 
   constructor(private paisService: PaisService) { }
 
-  buscar() {
+  buscar(termino: string) {
     this.hayError = false;
-    console.log(this.termino);
-    this.paisService.buscarPais(this.termino)
+    this.termino = termino;
+    
+    this.paisService.buscarPais(termino)
     //ponemos el subscribe aqui porque no queremos retornar la info en el servicio, sino que queremos retornarla donde se llamó a buscarPais()
     .subscribe({
-      next: (paises) => {
-        console.log(paises);
+      next: (resp) => {
+        // console.log(resp)
+        this.paises = resp
+        console.log(this.paises);
       },
       error: (err) => {
         this.hayError = true;
+        this.paises = [];
       }
     })
   }
 
+  sugerencias(termino: string) {
+    this.hayError = false;
+  }  
 }
 
 //Así lo hace en el vídeo, pero con esta versión de angular han cambiado cosas y por eso lo hacemos diferente
