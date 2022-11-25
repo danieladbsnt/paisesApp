@@ -1,3 +1,4 @@
+<div class="animate__animated animate__fadeIn animate__faster">
 <h3>Buscar por región <small>{{regionActiva | titlecase}}</small></h3>
 <hr>
 <h5>Selecciona la región</h5>
@@ -23,5 +24,14 @@
         [class]="getClass(region)" 
         (click)="activarRegion(region)"
         >{{region | titlecase}}</button>
+    </div>
+</div>
+</div>
+
+
+<div *ngIf="paises.length > 0" class="row">
+    <div class="col">
+        <app-pais-tabla [paises]="paises"></app-pais-tabla>
+        
     </div>
 </div>
